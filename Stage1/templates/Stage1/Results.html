@@ -1,0 +1,27 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Results of Stage 1
+{% endblock %}
+
+{% block content %}
+
+<p>
+    Time's up!
+</p>
+<p>
+    In Stage 1, you attempted <b>{{attempted}}</b> tasks, and got <b>{{correct}}</b> correct.
+</p>
+<p>
+    You earned <b>{{earnings}}</b> from Stage 1.
+</p>
+<p>
+    Please click Next to proceed to Stage 2.
+</p>
+
+{% next_button %}
+
+{% endblock %}
+
+
