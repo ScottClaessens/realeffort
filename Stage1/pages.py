@@ -11,7 +11,7 @@ class Start(Page):
 
     def before_next_page(self):
         # user has 3 minutes to complete as many tasks as possible
-        self.participant.vars['expiry'] = time.time() + 3*60
+        self.participant.vars['expiry'] = time.time() + self.session.config['timer']
 
 
 class Task(Page):
@@ -27,15 +27,16 @@ class Task(Page):
         return self.participant.vars['expiry'] - time.time() > 3
 
     def before_next_page(self):
-        self.participant.vars['stage1_attempted'] += 1
-        num1 = self.session.vars['numbers'][0][self.subsession.round_number]
-        num2 = self.session.vars['numbers'][1][self.subsession.round_number]
-        if self.player.task == num1 + num2:
-            self.participant.vars['stage1_correct'] += 1
+        if self.timeout_happened is False:
+            self.participant.vars['stage1_attempted'] += 1
+            num1 = self.session.vars['numbers1'][0][self.subsession.round_number - 1]
+            num2 = self.session.vars['numbers1'][1][self.subsession.round_number - 1]
+            if self.player.task == num1 + num2:
+                self.participant.vars['stage1_correct'] += 1
 
     def vars_for_template(self):
-        num1 = self.session.vars['numbers'][0][self.subsession.round_number]
-        num2 = self.session.vars['numbers'][1][self.subsession.round_number]
+        num1 = self.session.vars['numbers1'][0][self.subsession.round_number - 1]
+        num2 = self.session.vars['numbers1'][1][self.subsession.round_number - 1]
         return {'num1': num1,
                 'num2': num2}
 

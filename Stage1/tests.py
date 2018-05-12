@@ -7,5 +7,8 @@ from .models import Constants
 class PlayerBot(Bot):
 
     def play_round(self):
-        yield (pages.MyPage)
-        yield (pages.Results)
+        if self.round_number == 1:
+            yield (pages.Start)
+        yield (pages.Task, {'task': 100})
+        if self.round_number == Constants.num_rounds:
+            yield (pages.Results)

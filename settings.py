@@ -14,59 +14,12 @@ SESSION_CONFIG_DEFAULTS = {
 SESSION_CONFIGS = [
     {
        'name': 'realeffort1',
-       'display_name': "Real-Effort Experiment - Treatment 1",
+       'display_name': "Real-Effort Experiment",
        'num_demo_participants': 3,
-       'app_sequence': ['Stage1'],
-       'treatment': 1
-    },
-    {
-       'name': 'realeffort2',
-       'display_name': "Real-Effort Experiment - Treatment 2",
-       'num_demo_participants': 3,
-       'app_sequence': ['Stage1'],
-       'treatment': 2
-    },
-    {
-       'name': 'realeffort3',
-       'display_name': "Real-Effort Experiment - Treatment 3",
-       'num_demo_participants': 3,
-       'app_sequence': ['Stage1'],
-       'treatment': 3
-    },
-    {
-       'name': 'realeffort4',
-       'display_name': "Real-Effort Experiment - Treatment 4",
-       'num_demo_participants': 3,
-       'app_sequence': ['Stage1'],
-       'treatment': 4
-    },
-    {
-       'name': 'realeffort5',
-       'display_name': "Real-Effort Experiment - Treatment 5",
-       'num_demo_participants': 3,
-       'app_sequence': ['Stage1'],
-       'treatment': 5
-    },
-    {
-       'name': 'realeffort6',
-       'display_name': "Real-Effort Experiment - Treatment 6",
-       'num_demo_participants': 3,
-       'app_sequence': ['Stage1'],
-       'treatment': 6
-    },
-    {
-       'name': 'realeffort7',
-       'display_name': "Real-Effort Experiment - Treatment 7",
-       'num_demo_participants': 3,
-       'app_sequence': ['Stage1'],
-       'treatment': 7
-    },
-    {
-       'name': 'realeffort8',
-       'display_name': "Real-Effort Experiment - Treatment 8",
-       'num_demo_participants': 3,
-       'app_sequence': ['Stage1'],
-       'treatment': 8
+       'app_sequence': ['Stage1',
+                        'Stage2'],
+       'treatment': 1,
+       'timer': 180
     },
 ]
 
