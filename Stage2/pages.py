@@ -41,9 +41,9 @@ class Task1(Page):
 
     def is_displayed(self):
         if self.group.get_player_by_id(1).participant.vars['expiry'] - time.time() > 3:
-            if self.subsession.round_number in range(1, 31) or range(91, 121):
+            if self.round_number in range(1, 31) or range(91, 121):
                 return self.player.id_in_group == 1
-            elif self.subsession.round_number in range(31, 61) or range(121, 151):
+            elif self.round_number in range(31, 61) or range(121, 151):
                 return self.player.id_in_group == 2
             else:
                 return self.player.id_in_group == 3
@@ -55,8 +55,8 @@ class Task1(Page):
             self.player.task1_before_next_page()
 
     def vars_for_template(self):
-        num1 = self.session.vars['numbers2'][0][self.subsession.round_number - 1]
-        num2 = self.session.vars['numbers2'][1][self.subsession.round_number - 1]
+        num1 = self.session.vars['numbers2'][0][self.round_number - 1]
+        num2 = self.session.vars['numbers2'][1][self.round_number - 1]
         round_number = self.group.get_player_by_id(1).participant.vars['stage2_round_number']
         return {'num1': num1,
                 'num2': num2,
@@ -74,9 +74,9 @@ class Task2(Page):
 
     def is_displayed(self):
         if self.group.get_player_by_id(1).participant.vars['expiry'] - time.time() > 3:
-            if self.subsession.round_number in range(1, 31) or range(91, 121):
+            if self.round_number in range(1, 31) or range(91, 121):
                 return self.player.id_in_group == 2
-            elif self.subsession.round_number in range(31, 61) or range(121, 151):
+            elif self.round_number in range(31, 61) or range(121, 151):
                 return self.player.id_in_group == 3
             else:
                 return self.player.id_in_group == 1
@@ -88,13 +88,13 @@ class Task2(Page):
             self.player.task2_before_next_page()
 
     def vars_for_template(self):
-        if self.subsession.round_number in range(1, 31) or range(91, 121):
+        if self.round_number in range(1, 31) or range(91, 121):
             num1 = self.group.get_player_by_id(1).task
-        elif self.subsession.round_number in range(31, 61) or range(121, 151):
+        elif self.round_number in range(31, 61) or range(121, 151):
             num1 = self.group.get_player_by_id(2).task
         else:
             num1 = self.group.get_player_by_id(3).task
-        num2 = self.session.vars['numbers2'][2][self.subsession.round_number - 1]
+        num2 = self.session.vars['numbers2'][2][self.round_number - 1]
         round_number = self.group.get_player_by_id(1).participant.vars['stage2_round_number']
         return {'num1': num1,
                 'num2': num2,
@@ -112,9 +112,9 @@ class Task3(Page):
 
     def is_displayed(self):
         if self.group.get_player_by_id(1).participant.vars['expiry'] - time.time() > 3:
-            if self.subsession.round_number in range(1, 31) or range(91, 121):
+            if self.round_number in range(1, 31) or range(91, 121):
                 return self.player.id_in_group == 3
-            elif self.subsession.round_number in range(31, 61) or range(121, 151):
+            elif self.round_number in range(31, 61) or range(121, 151):
                 return self.player.id_in_group == 1
             else:
                 return self.player.id_in_group == 2
@@ -126,13 +126,13 @@ class Task3(Page):
             self.player.task3_before_next_page()
 
     def vars_for_template(self):
-        if self.subsession.round_number in range(1, 31) or range(91, 121):
+        if self.round_number in range(1, 31) or range(91, 121):
             num1 = self.group.get_player_by_id(2).task
-        elif self.subsession.round_number in range(31, 61) or range(121, 151):
+        elif self.round_number in range(31, 61) or range(121, 151):
             num1 = self.group.get_player_by_id(3).task
         else:
             num1 = self.group.get_player_by_id(1).task
-        num2 = self.session.vars['numbers2'][3][self.subsession.round_number - 1]
+        num2 = self.session.vars['numbers2'][3][self.round_number - 1]
         round_number = self.group.get_player_by_id(1).participant.vars['stage2_round_number']
         return {'num1': num1,
                 'num2': num2,
