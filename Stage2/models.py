@@ -103,3 +103,35 @@ class Player(BasePlayer):
             self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] = False
         if self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] is True:
             self.group.get_player_by_id(1).participant.vars['stage2_correct_cycles'] += 1
+
+    def display(self, order):
+        if self.group.get_player_by_id(1).participant.vars['expiry'] - time.time() > 3:
+            if self.round_number in range(1, 31) or self.round_number in range(91, 121):
+                return self.id_in_group == order[0]
+            elif self.round_number in range(31, 61) or self.round_number in range(121, 151):
+                return self.id_in_group == order[1]
+            else:
+                return self.id_in_group == order[2]
+        else:
+            return False
+
+    def num1(self, order):
+        if self.round_number in range(1, 31) or self.round_number in range(91, 121):
+            return self.group.get_player_by_id(order[0]).task
+        elif self.round_number in range(31, 61) or self.round_number in range(121, 151):
+            return self.group.get_player_by_id(order[1]).task
+        else:
+            return self.group.get_player_by_id(order[2]).task
+
+    def save_and_reset_vars(self):
+        p1 = self.group.get_player_by_id(1)
+        # Save vars
+        self.attempted_individual = self.participant.vars['stage2_attempted_individual']
+        self.correct_individual = self.participant.vars['stage2_correct_individual']
+        self.attempted_cycles = p1.participant.vars['stage2_attempted_cycles']
+        self.correct_cycles = p1.participant.vars['stage2_correct_cycles']
+        # Reset vars
+        self.participant.vars['stage2_attempted_individual'] = 0
+        self.participant.vars['stage2_correct_individual'] = 0
+        p1.participant.vars['stage2_attempted_cycles'] = 0
+        p1.participant.vars['stage2_correct_cycles'] = 0

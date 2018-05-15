@@ -16,9 +16,8 @@ SESSION_CONFIGS = [
        'name': 'realeffort1',
        'display_name': "Real-Effort Experiment",
        'num_demo_participants': 3,
-       'app_sequence': [#'Stage1',
+       'app_sequence': ['Stage1',
                         'Stage2'],
-       'treatment': 1,
        'timer': 180
     },
 ]
@@ -31,6 +30,7 @@ LANGUAGE_CODE = 'en'
 # e.g. EUR, GBP, CNY, JPY
 REAL_WORLD_CURRENCY_CODE = 'USD'
 USE_POINTS = True
+POINTS_CUSTOM_NAME = 'thalers'
 
 ROOMS = []
 

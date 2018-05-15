@@ -25,9 +25,22 @@ class SetTimerWait(WaitPage):
         self.group.set_round_number()
 
 
-class Wait(WaitPage):
+class WaitForTask1(WaitPage):
     def is_displayed(self):
-        return self.group.get_player_by_id(1).participant.vars['expiry'] - time.time() > 3
+        order = [1, 2, 3]
+        return self.player.display(order)
+
+
+class WaitForTask2(WaitPage):
+    def is_displayed(self):
+        order = [2, 3, 1]
+        return self.player.display(order)
+
+
+class WaitForTask3(WaitPage):
+    def is_displayed(self):
+        order = [3, 1, 2]
+        return self.player.display(order)
 
 
 class Task1(Page):
@@ -40,17 +53,8 @@ class Task1(Page):
         return self.group.timer()
 
     def is_displayed(self):
-        if self.player.id_in_group == 1:
-            print(self.round_number)
-        if self.group.get_player_by_id(1).participant.vars['expiry'] - time.time() > 3:
-            if self.round_number in range(1, 31) or self.round_number in range(91, 121):
-                return self.player.id_in_group == 1
-            elif self.round_number in range(31, 61) or self.round_number in range(121, 151):
-                return self.player.id_in_group == 2
-            else:
-                return self.player.id_in_group == 3
-        else:
-            return False
+        order = [1, 2, 3]
+        return self.player.display(order)
 
     def before_next_page(self):
         if self.timeout_happened is False:
@@ -75,27 +79,16 @@ class Task2(Page):
         return self.group.timer()
 
     def is_displayed(self):
-        if self.group.get_player_by_id(1).participant.vars['expiry'] - time.time() > 3:
-            if self.round_number in range(1, 31) or self.round_number in range(91, 121):
-                return self.player.id_in_group == 2
-            elif self.round_number in range(31, 61) or self.round_number in range(121, 151):
-                return self.player.id_in_group == 3
-            else:
-                return self.player.id_in_group == 1
-        else:
-            return False
+        order = [2, 3, 1]
+        return self.player.display(order)
 
     def before_next_page(self):
         if self.timeout_happened is False:
             self.player.task2_before_next_page()
 
     def vars_for_template(self):
-        if self.round_number in range(1, 31) or self.round_number in range(91, 121):
-            num1 = self.group.get_player_by_id(1).task
-        elif self.round_number in range(31, 61) or self.round_number in range(121, 151):
-            num1 = self.group.get_player_by_id(2).task
-        else:
-            num1 = self.group.get_player_by_id(3).task
+        order = [1, 2, 3]
+        num1 = self.player.num1(order)
         num2 = self.session.vars['numbers2'][2][self.round_number - 1]
         round_number = self.group.get_player_by_id(1).participant.vars['stage2_round_number']
         return {'num1': num1,
@@ -113,27 +106,16 @@ class Task3(Page):
         return self.group.timer()
 
     def is_displayed(self):
-        if self.group.get_player_by_id(1).participant.vars['expiry'] - time.time() > 3:
-            if self.round_number in range(1, 31) or self.round_number in range(91, 121):
-                return self.player.id_in_group == 3
-            elif self.round_number in range(31, 61) or self.round_number in range(121, 151):
-                return self.player.id_in_group == 1
-            else:
-                return self.player.id_in_group == 2
-        else:
-            return False
+        order = [3, 1, 2]
+        return self.player.display(order)
 
     def before_next_page(self):
         if self.timeout_happened is False:
             self.player.task3_before_next_page()
 
     def vars_for_template(self):
-        if self.round_number in range(1, 31) or self.round_number in range(91, 121):
-            num1 = self.group.get_player_by_id(2).task
-        elif self.round_number in range(31, 61) or self.round_number in range(121, 151):
-            num1 = self.group.get_player_by_id(3).task
-        else:
-            num1 = self.group.get_player_by_id(1).task
+        order = [2, 3, 1]
+        num1 = self.player.num1(order)
         num2 = self.session.vars['numbers2'][3][self.round_number - 1]
         round_number = self.group.get_player_by_id(1).participant.vars['stage2_round_number']
         return {'num1': num1,
@@ -146,11 +128,7 @@ class Results(Page):
         return self.round_number in [30, 60, 90, 120, 150, 180]
 
     def before_next_page(self):
-        self.player.attempted_individual = self.participant.vars['stage2_attempted_individual']
-        self.player.correct_individual = self.participant.vars['stage2_correct_individual']
-        p1 = self.group.get_player_by_id(1)
-        self.player.attempted_cycles = p1.participant.vars['stage2_attempted_cycles']
-        self.player.correct_cycles = p1.participant.vars['stage2_correct_cycles']
+        self.player.save_and_reset_vars()
 
     def vars_for_template(self):
         p1 = self.group.get_player_by_id(1)
@@ -166,11 +144,11 @@ class Results(Page):
 page_sequence = [
     Start,
     SetTimerWait,
+    WaitForTask1,
     Task1,
-    Wait,
+    WaitForTask2,
     Task2,
-    Wait,
+    WaitForTask3,
     Task3,
-    Wait,
     Results,
 ]
