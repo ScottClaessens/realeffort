@@ -56,8 +56,8 @@ class Player(BasePlayer):
 
     def task1_before_next_page(self):
         self.participant.vars['stage2_attempted_individual'] += 1
-        num1 = self.session.vars['numbers2'][0][self.subsession.round_number - 1]
-        num2 = self.session.vars['numbers2'][1][self.subsession.round_number - 1]
+        num1 = self.session.vars['numbers2'][0][self.round_number - 1]
+        num2 = self.session.vars['numbers2'][1][self.round_number - 1]
         if self.task == num1 + num2:
             self.participant.vars['stage2_correct_individual'] += 1
             self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] = True
@@ -66,13 +66,13 @@ class Player(BasePlayer):
 
     def task2_before_next_page(self):
         self.participant.vars['stage2_attempted_individual'] += 1
-        if self.subsession.round_number in range(1, 31) or range(91, 121):
+        if self.round_number in range(1, 31) or self.round_number in range(91, 121):
             num1 = self.group.get_player_by_id(1).task
-        elif self.subsession.round_number in range(31, 61) or range(121, 151):
+        elif self.round_number in range(31, 61) or self.round_number in range(121, 151):
             num1 = self.group.get_player_by_id(2).task
         else:
             num1 = self.group.get_player_by_id(3).task
-        num2 = self.session.vars['numbers2'][2][self.subsession.round_number - 1]
+        num2 = self.session.vars['numbers2'][2][self.round_number - 1]
         if self.task == num1 + num2:
             self.participant.vars['stage2_correct_individual'] += 1
             if self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] is True:
@@ -86,13 +86,13 @@ class Player(BasePlayer):
     def task3_before_next_page(self):
         self.participant.vars['stage2_attempted_individual'] += 1
         self.group.get_player_by_id(1).participant.vars['stage2_attempted_cycles'] += 1
-        if self.subsession.round_number in range(1, 31) or range(91, 121):
+        if self.round_number in range(1, 31) or self.round_number in range(91, 121):
             num1 = self.group.get_player_by_id(2).task
-        elif self.subsession.round_number in range(31, 61) or range(121, 151):
+        elif self.round_number in range(31, 61) or self.round_number in range(121, 151):
             num1 = self.group.get_player_by_id(3).task
         else:
             num1 = self.group.get_player_by_id(1).task
-        num2 = self.session.vars['numbers2'][3][self.subsession.round_number - 1]
+        num2 = self.session.vars['numbers2'][3][self.round_number - 1]
         if self.task == num1 + num2:
             self.participant.vars['stage2_correct_individual'] += 1
             if self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] is True:

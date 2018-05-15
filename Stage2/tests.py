@@ -10,9 +10,9 @@ class PlayerBot(Bot):
         if self.round_number in [1, 31, 61, 91, 121, 151]:
             yield (pages.Start)
         orders = [[1, 2, 3], [2, 3, 1], [3, 1, 2]]
-        if self.round_number in range(1, 31) or range(91, 121):
+        if self.round_number in range(1, 31) or self.round_number in range(91, 121):
             order = orders[0]
-        elif self.round_number in range(31, 61) or range(121, 151):
+        elif self.round_number in range(31, 61) or self.round_number in range(121, 151):
             order = orders[1]
         else:
             order = orders[2]

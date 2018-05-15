@@ -40,10 +40,12 @@ class Task1(Page):
         return self.group.timer()
 
     def is_displayed(self):
+        if self.player.id_in_group == 1:
+            print(self.round_number)
         if self.group.get_player_by_id(1).participant.vars['expiry'] - time.time() > 3:
-            if self.round_number in range(1, 31) or range(91, 121):
+            if self.round_number in range(1, 31) or self.round_number in range(91, 121):
                 return self.player.id_in_group == 1
-            elif self.round_number in range(31, 61) or range(121, 151):
+            elif self.round_number in range(31, 61) or self.round_number in range(121, 151):
                 return self.player.id_in_group == 2
             else:
                 return self.player.id_in_group == 3
@@ -74,9 +76,9 @@ class Task2(Page):
 
     def is_displayed(self):
         if self.group.get_player_by_id(1).participant.vars['expiry'] - time.time() > 3:
-            if self.round_number in range(1, 31) or range(91, 121):
+            if self.round_number in range(1, 31) or self.round_number in range(91, 121):
                 return self.player.id_in_group == 2
-            elif self.round_number in range(31, 61) or range(121, 151):
+            elif self.round_number in range(31, 61) or self.round_number in range(121, 151):
                 return self.player.id_in_group == 3
             else:
                 return self.player.id_in_group == 1
@@ -88,9 +90,9 @@ class Task2(Page):
             self.player.task2_before_next_page()
 
     def vars_for_template(self):
-        if self.round_number in range(1, 31) or range(91, 121):
+        if self.round_number in range(1, 31) or self.round_number in range(91, 121):
             num1 = self.group.get_player_by_id(1).task
-        elif self.round_number in range(31, 61) or range(121, 151):
+        elif self.round_number in range(31, 61) or self.round_number in range(121, 151):
             num1 = self.group.get_player_by_id(2).task
         else:
             num1 = self.group.get_player_by_id(3).task
@@ -112,9 +114,9 @@ class Task3(Page):
 
     def is_displayed(self):
         if self.group.get_player_by_id(1).participant.vars['expiry'] - time.time() > 3:
-            if self.round_number in range(1, 31) or range(91, 121):
+            if self.round_number in range(1, 31) or self.round_number in range(91, 121):
                 return self.player.id_in_group == 3
-            elif self.round_number in range(31, 61) or range(121, 151):
+            elif self.round_number in range(31, 61) or self.round_number in range(121, 151):
                 return self.player.id_in_group == 1
             else:
                 return self.player.id_in_group == 2
@@ -126,9 +128,9 @@ class Task3(Page):
             self.player.task3_before_next_page()
 
     def vars_for_template(self):
-        if self.round_number in range(1, 31) or range(91, 121):
+        if self.round_number in range(1, 31) or self.round_number in range(91, 121):
             num1 = self.group.get_player_by_id(2).task
-        elif self.round_number in range(31, 61) or range(121, 151):
+        elif self.round_number in range(31, 61) or self.round_number in range(121, 151):
             num1 = self.group.get_player_by_id(3).task
         else:
             num1 = self.group.get_player_by_id(1).task
