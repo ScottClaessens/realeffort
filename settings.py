@@ -16,7 +16,7 @@ SESSION_CONFIGS = [
        'name': 'realeffort1',
        'display_name': "Real-Effort Experiment",
        'num_demo_participants': 3,
-       'app_sequence': ['Stage1',
+       'app_sequence': [#'Stage1',
                         'Stage2'],
        'treatment': 1,
        'timer': 180

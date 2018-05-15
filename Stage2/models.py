@@ -3,6 +3,7 @@ from otree.api import (
     Currency as c, currency_range
 )
 import random
+import time
 
 
 author = 'Scott Claessens - University of Auckland'
@@ -35,7 +36,11 @@ class Subsession(BaseSubsession):
 
 
 class Group(BaseGroup):
-    pass
+    def timer(self):
+        return self.get_player_by_id(1).participant.vars['expiry'] - time.time()
+
+    def set_round_number(self):
+        self.get_player_by_id(1).participant.vars['stage2_round_number'] = int((self.round_number + 29) / 30)
 
 
 class Player(BasePlayer):
@@ -48,3 +53,53 @@ class Player(BasePlayer):
     correct_individual = models.IntegerField()
     attempted_cycles = models.IntegerField()
     correct_cycles = models.IntegerField()
+
+    def task1_before_next_page(self):
+        self.participant.vars['stage2_attempted_individual'] += 1
+        num1 = self.session.vars['numbers2'][0][self.subsession.round_number - 1]
+        num2 = self.session.vars['numbers2'][1][self.subsession.round_number - 1]
+        if self.task == num1 + num2:
+            self.participant.vars['stage2_correct_individual'] += 1
+            self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] = True
+        else:
+            self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] = False
+
+    def task2_before_next_page(self):
+        self.participant.vars['stage2_attempted_individual'] += 1
+        if self.subsession.round_number in range(1, 31) or range(91, 121):
+            num1 = self.group.get_player_by_id(1).task
+        elif self.subsession.round_number in range(31, 61) or range(121, 151):
+            num1 = self.group.get_player_by_id(2).task
+        else:
+            num1 = self.group.get_player_by_id(3).task
+        num2 = self.session.vars['numbers2'][2][self.subsession.round_number - 1]
+        if self.task == num1 + num2:
+            self.participant.vars['stage2_correct_individual'] += 1
+            if self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] is True:
+                self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] = True
+            else:
+                self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] = False
+        else:
+            self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] = False
+
+
+    def task3_before_next_page(self):
+        self.participant.vars['stage2_attempted_individual'] += 1
+        self.group.get_player_by_id(1).participant.vars['stage2_attempted_cycles'] += 1
+        if self.subsession.round_number in range(1, 31) or range(91, 121):
+            num1 = self.group.get_player_by_id(2).task
+        elif self.subsession.round_number in range(31, 61) or range(121, 151):
+            num1 = self.group.get_player_by_id(3).task
+        else:
+            num1 = self.group.get_player_by_id(1).task
+        num2 = self.session.vars['numbers2'][3][self.subsession.round_number - 1]
+        if self.task == num1 + num2:
+            self.participant.vars['stage2_correct_individual'] += 1
+            if self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] is True:
+                self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] = True
+            else:
+                self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] = False
+        else:
+            self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] = False
+        if self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] is True:
+            self.group.get_player_by_id(1).participant.vars['stage2_correct_cycles'] += 1

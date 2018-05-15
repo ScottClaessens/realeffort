@@ -43,7 +43,7 @@ class Task(Page):
 
 class Results(Page):
     def is_displayed(self):
-        return self.participant.vars['expiry'] - time.time() < 3 and self.round_number == Constants.num_rounds
+        return self.round_number == Constants.num_rounds
 
     def before_next_page(self):
         self.player.attempted = self.participant.vars['stage1_attempted']

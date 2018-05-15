@@ -2,13 +2,14 @@
 {% load otree static %}
 
 {% block title %}
-    Begin Stage 2
+    Begin Stage 2 (Round {{round_number}})
 {% endblock %}
 
 {% block content %}
 
 <p>
-    When you're ready, click Next to begin Stage 2. The three minute timer will start when you click Next.
+    When you're ready, click Next to begin Stage 2 (Round {{round_number}}).
+    The three minute timer will start when everyone in the group clicks Next.
 </p>
 
 {% next_button %}
