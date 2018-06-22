@@ -3,6 +3,10 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 import time
 
+class Intro(Page):
+    def is_displayed(self):
+        return self.round_number == 1
+
 
 class Start(Page):
     def is_displayed(self):
@@ -137,11 +141,12 @@ class Results(Page):
                 'correct_individual': self.participant.vars['stage2_correct_individual'],
                 'attempted_cycles': p1.participant.vars['stage2_attempted_cycles'],
                 'correct_cycles': p1.participant.vars['stage2_correct_cycles'],
-                'earnings': c(p1.participant.vars['stage2_correct_cycles']),
+                'earnings': c(30) * (p1.participant.vars['stage2_correct_cycles']//2),
                 'round_number': round_number}
 
 
 page_sequence = [
+    Intro,
     Start,
     SetTimerWait,
     WaitForTask1,

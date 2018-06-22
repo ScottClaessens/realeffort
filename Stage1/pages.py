@@ -9,6 +9,9 @@ class Start(Page):
     def is_displayed(self):
         return self.round_number == 1
 
+    def vars_for_template(self):
+        return {'piecerate': self.session.config['stage1_piecerate']}
+
     def before_next_page(self):
         # user has 3 minutes to complete as many tasks as possible
         self.participant.vars['expiry'] = time.time() + self.session.config['timer']
@@ -33,6 +36,7 @@ class Task(Page):
             num2 = self.session.vars['numbers1'][1][self.subsession.round_number - 1]
             if self.player.task == num1 + num2:
                 self.participant.vars['stage1_correct'] += 1
+                self.player.payoff = c(self.session.config['stage1_piecerate'])
 
     def vars_for_template(self):
         num1 = self.session.vars['numbers1'][0][self.subsession.round_number - 1]
@@ -52,7 +56,7 @@ class Results(Page):
     def vars_for_template(self):
         return {'attempted': self.participant.vars['stage1_attempted'],
                 'correct': self.participant.vars['stage1_correct'],
-                'earnings': c(self.participant.vars['stage1_correct'])}
+                'earnings': c(self.session.config['stage1_piecerate']) * self.participant.vars['stage1_correct']}
 
 
 page_sequence = [

@@ -125,6 +125,8 @@ class Player(BasePlayer):
 
     def save_and_reset_vars(self):
         p1 = self.group.get_player_by_id(1)
+        # Add to payoffs
+        self.payoff = c(30) * (p1.participant.vars['stage2_correct_cycles']//2)
         # Save vars
         self.attempted_individual = self.participant.vars['stage2_attempted_individual']
         self.correct_individual = self.participant.vars['stage2_correct_individual']

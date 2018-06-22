@@ -18,7 +18,8 @@ SESSION_CONFIGS = [
        'num_demo_participants': 3,
        'app_sequence': ['Stage1',
                         'Stage2'],
-       'timer': 180
+       'timer': 60,
+       'stage1_piecerate': 2
     },
 ]
 

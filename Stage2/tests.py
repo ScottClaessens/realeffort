@@ -7,6 +7,8 @@ from .models import Constants
 class PlayerBot(Bot):
 
     def play_round(self):
+        if self.round_number == 1:
+            yield (pages.Intro)
         if self.round_number in [1, 31, 61, 91, 121, 151]:
             yield (pages.Start)
         orders = [[1, 2, 3], [2, 3, 1], [3, 1, 2]]
