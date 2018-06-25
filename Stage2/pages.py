@@ -133,6 +133,8 @@ class Results(Page):
 
     def before_next_page(self):
         self.player.save_and_reset_vars()
+        if self.round_number is 180:
+            self.player.calculate_idle_time()
 
     def vars_for_template(self):
         p1 = self.group.get_player_by_id(1)

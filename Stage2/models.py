@@ -4,6 +4,7 @@ from otree.api import (
 )
 import random
 import time
+from otree.models_concrete import PageCompletion
 
 
 author = 'Scott Claessens - University of Auckland'
@@ -53,6 +54,7 @@ class Player(BasePlayer):
     correct_individual = models.IntegerField()
     attempted_cycles = models.IntegerField()
     correct_cycles = models.IntegerField()
+    idle_time = models.IntegerField()
 
     def task1_before_next_page(self):
         self.participant.vars['stage2_attempted_individual'] += 1
@@ -137,3 +139,16 @@ class Player(BasePlayer):
         self.participant.vars['stage2_correct_individual'] = 0
         p1.participant.vars['stage2_attempted_cycles'] = 0
         p1.participant.vars['stage2_correct_cycles'] = 0
+
+    def calculate_idle_time(self):
+        waiting_pages = [
+            'WaitForTask1',
+            'WaitForTask2',
+            'WaitForTask3',
+        ]
+        wp_sec = sum(PageCompletion.objects.filter(participant=self.participant,
+                                                   page_name__in=waiting_pages).values_list(
+            'seconds_on_page',
+            flat=True))
+        self.idle_time = wp_sec
+        self.participant.vars['stage2_idletime'] = wp_sec
