@@ -1,0 +1,28 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Introduction to Stage 3
+{% endblock %}
+
+{% block content %}
+
+<p>
+    In Stage 3, you remain in the same group of two workers. As in Stage 2, you will complete addition questions as a
+    group.
+</p>
+<p>
+    In Stage 3, you will earn <b>{{stage3_piecerate|c}}</b> for every
+    <b>{{stage3_requiredcycles}} response cycles</b> your group completes.
+</p>
+<p>
+    Stage 3 will consist of six rounds. In these rounds, you will experience each role in the chain (i.e.
+    first and second) three times. Your group will be timed in each round, as before.
+</p>
+<p>
+    Click Next to begin Stage 3.
+</p>
+
+{% next_button %}
+
+{% endblock %}

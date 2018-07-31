@@ -1,0 +1,21 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Begin Stage 3 (Round {{round_number}})
+{% endblock %}
+
+{% block content %}
+
+<p>
+    In your group of two, please complete as many response cycles as you can in three minutes.
+    You will earn <b>{{stage3_piecerate|c}}</b> for every <b>{{stage3_requiredcycles}} correct response cycles</b>.
+</p>
+<p>
+    When you're ready, click Next to begin Stage 3 (Round {{round_number}}).
+    The three minute timer will start when everyone in the group clicks Next.
+</p>
+
+{% next_button %}
+
+{% endblock %}

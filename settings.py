@@ -11,15 +11,135 @@ SESSION_CONFIG_DEFAULTS = {
     'doc': "",
 }
 
+# set variables for ALL treatment types
+timer = 180  # in seconds
+stage1_piecerate = 2  # thalers for each correct question
+
+
 SESSION_CONFIGS = [
     {
        'name': 'realeffort1',
-       'display_name': "Real-Effort Experiment",
+       'display_name': "Treatment 1 - Baseline (n=3); Baseline (n=3)",
        'num_demo_participants': 3,
-       'app_sequence': ['Stage1',
-                        'Stage2'],
-       'timer': 60,
-       'stage1_piecerate': 2
+       'use_browser_bots': False,
+       'app_sequence': ['Intro',
+                        'Stage1',
+                        'Stage2_n3',
+                        'Stage3_n3'],
+       'timer': timer,
+       'stage1_piecerate': stage1_piecerate,
+       'stage3_piecerate': 30,
+       'stage3_requiredcycles': 2
+    },
+    {
+       'name': 'realeffort2',
+       'display_name': "Treatment 2 - Baseline (n=3); Pay cut, workload (n=3)",
+       'num_demo_participants': 3,
+       'use_browser_bots': False,
+       'app_sequence': ['Intro',
+                        'Stage1',
+                        'Stage2_n3',
+                        'Stage3_n3'],
+       'timer': timer,
+       'stage1_piecerate': stage1_piecerate,
+       'stage3_piecerate': 30,
+       'stage3_requiredcycles': 3
+    },
+    {
+       'name': 'realeffort3',
+       'display_name': "Treatment 3 - Baseline (n=3); Layoff - random (n=2)",
+       'num_demo_participants': 3,
+       'use_browser_bots': False,
+       'app_sequence': ['Intro',
+                        'Stage1',
+                        'Stage2_n3',
+                        'Layoff',
+                        'Stage3_n2layoff'],
+       'timer': timer,
+       'stage1_piecerate': stage1_piecerate,
+       'layoff': 'random',
+       'stage3_piecerate': 30,
+       'stage3_requiredcycles': 3
+    },
+    {
+        'name': 'realeffort4',
+        'display_name': "Treatment 4 - Baseline (n=3); Layoff - weak (n=2)",
+        'num_demo_participants': 3,
+        'use_browser_bots': False,
+        'app_sequence': ['Intro',
+                         'Stage1',
+                         'Stage2_n3',
+                         'Layoff',
+                         'Stage3_n2layoff'],
+        'timer': timer,
+        'stage1_piecerate': stage1_piecerate,
+        'layoff': 'weak',
+        'stage3_piecerate': 30,
+        'stage3_requiredcycles': 3
+    },
+    {
+       'name': 'realeffort5',
+       'display_name': "Treatment 5 - Baseline (n=2); Pay cut, workload (n=2)",
+       'num_demo_participants': 2,
+       'use_browser_bots': False,
+       'app_sequence': ['Intro',
+                        'Stage1',
+                        'Stage2_n2',
+                        'Stage3_n2'],
+       'timer': timer,
+       'stage1_piecerate': stage1_piecerate,
+       'stage3_piecerate': 30,
+       'stage3_requiredcycles': 3
+    },
+    {
+       'name': 'realeffort6',
+       'display_name': "Treatment 6 - Baseline (n=3); Pay cut, piece rate (n=3)",
+       'num_demo_participants': 3,
+       'use_browser_bots': False,
+       'app_sequence': ['Intro',
+                        'Stage1',
+                        'Stage2_n3',
+                        'Stage3_n3'],
+       'timer': timer,
+       'stage1_piecerate': stage1_piecerate,
+       'stage3_piecerate': 20,
+       'stage3_requiredcycles': 2
+    },
+    {
+       'name': 'realeffort7',
+       'display_name': "Treatment 7 - Baseline (n=3); Vote between layoff (random) and pay cut, piece rate (n=3)",
+       'num_demo_participants': 3,
+       'use_browser_bots': False,
+       'app_sequence': ['Intro',
+                        'Stage1',
+                        'Stage2_n3',
+                        'Voting',
+                        'Stage3_n3',
+                        'Layoff',
+                        'Stage3_n2layoff'],
+       'timer': timer,
+       'stage1_piecerate': stage1_piecerate,
+       'layoff': 'random',
+       'stage3_piecerate': 20,
+       'stage3_requiredcycles': 2
+    },
+    {
+       'name': 'realeffort8',
+       'display_name': "Treatment 8 - Baseline (n=3); Vote between layoff (weak) and pay cut, piece rate (n=3)",
+       'num_demo_participants': 3,
+       'use_browser_bots': False,
+       'app_sequence': ['Intro',
+                        'Stage1',
+                        'Stage2_n3',
+                        'Voting',
+                        'Stage3_n3',
+                        'Layoff',
+                        'Stage3_n2layoff'],
+       'timer': timer,
+       'stage1_piecerate': stage1_piecerate,
+       'layoff': 'weak',
+       'stage3_piecerate': 20,
+       'stage3_requiredcycles': 2
     },
 ]
 
@@ -58,10 +178,13 @@ SENTRY_DSN = 'http://d606c64efb5d449d9ac450ef47fef1b0:1f312687dcc6423fa67a65d3b7
 # Consider '', None, and '0' to be empty/false
 DEBUG = (environ.get('OTREE_PRODUCTION') in {None, '', '0'})
 
-DEMO_PAGE_INTRO_HTML = """ """
+DEMO_PAGE_TITLE = 'Real-Effort Workers'
+DEMO_PAGE_INTRO_HTML = 'Click on a treatment type to play a demo.'
 
 # don't share this with anybody.
 SECRET_KEY = '(b=k%jx^!kh08ifkaj()$#x&*sm(6u4=23pp1aw_vg-_hio*s@'
 
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
-INSTALLED_APPS = ['otree']
+INSTALLED_APPS = [
+    'otree',
+]

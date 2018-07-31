@@ -1,0 +1,18 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Stage 2 (Round {{round_number}})
+{% endblock %}
+
+{% block content %}
+
+<p>
+    <b>{{num1}}</b> + <b>{{num2}}</b> =
+</p>
+
+{% formfield player.task label="" %}
+
+{% next_button %}
+
+{% endblock %}

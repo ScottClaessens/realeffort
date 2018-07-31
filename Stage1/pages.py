@@ -21,7 +21,7 @@ class Task(Page):
     form_model = 'player'
     form_fields = ['task']
 
-    timer_text = 'Time left to complete Stage 1:'
+    timer_text = 'Remaining time:'
 
     def get_timeout_seconds(self):
         return self.participant.vars['expiry'] - time.time()

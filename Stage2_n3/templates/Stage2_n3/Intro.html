@@ -1,0 +1,43 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Introduction to Stage 2
+{% endblock %}
+
+{% block content %}
+
+<p>
+    In Stage 2, you have been placed in a group of three workers. You will complete addition questions again, as in
+    Stage 1, but your payoff depends on completing successful 'response cycles' rather than individual responses.
+    A response cycle is successfully completed when <i>all three workers in a group</i> correctly answer their question.
+</p>
+<p>
+    Addition questions are passed from group member to group member, in a kind of chain. The answer from the previous
+    member is used in the question for the next group member. For example:
+</p>
+<ol>
+    <li>Player 1 sees the addition question <b>50 + 60</b>. They answer <b>110</b>.</li>
+    <li>Player 2 sees the addition question <b><u>110</u> + 40</b>. They answer <b>150</b>.</li>
+    <li>Player 3 sees the addition question <b><u>150</u> + 50</b>. They answer <b>200</b>.</li>
+</ol>
+<p>
+    As you can see, each player's answer is used as the first number in the subsequent question in the chain. In the above
+    example, each member of the group correctly answered their question, so they would successfully complete the
+    response cycle. However, if any group member incorrectly answers their question, the chain is broken, and the
+    response cycle is not successful.
+</p>
+<p>
+    You will earn <b>{{30|c}}</b> for every <b>2 response cycles</b> your group completes.
+</p>
+<p>
+    Stage 2 will consist of six rounds. In these rounds, you will experience each role in the chain (i.e.
+    first, second, and third) twice. Your group will be timed in each round, as before.
+</p>
+<p>
+    Click Next to begin Stage 2.
+</p>
+
+{% next_button %}
+
+{% endblock %}

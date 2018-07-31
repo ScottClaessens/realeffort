@@ -1,0 +1,26 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Layoff
+{% endblock %}
+
+{% block content %}
+
+{% if layoff == 'weak' %}
+<p>
+    There will now be a layoff in your group. We will remove the player who made the most mistakes in Stage 2. In the
+    case of ties, we will remove the player who spent the longest time answering the questions.
+</p>
+{% elif layoff == 'random' %}
+<p>
+    There will now be a layoff in your group. We will remove one player from your group at random.
+</p>
+{% endif %}
+<p>
+    If you have been laid off, you will skip Stage 3.
+</p>
+
+{% next_button %}
+
+{% endblock %}

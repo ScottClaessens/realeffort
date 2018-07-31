@@ -25,33 +25,52 @@ class SetTimerWait(WaitPage):
         # GROUP has 3 minutes to complete as many tasks as possible
         for p in self.group.get_players():
             p.participant.vars['expiry'] = None
+            p.participant.vars['stage2_attempted_individual'] = 0
+            p.participant.vars['stage2_correct_individual'] = 0
+        self.group.get_player_by_id(1).participant.vars['stage2_attempted_cycles'] = 0
+        self.group.get_player_by_id(1).participant.vars['stage2_correct_cycles'] = 0
         self.group.get_player_by_id(1).participant.vars['expiry'] = time.time() + self.session.config['timer']
         self.group.set_round_number()
 
 
 class WaitForTask1(WaitPage):
+    template_name = 'Stage2_n3/MyWaitPage.html'
+
     def is_displayed(self):
         order = [1, 2, 3]
         return self.player.display(order)
 
+    def vars_for_template(self):
+        return {'expiry': self.group.timer()}
+
 
 class WaitForTask2(WaitPage):
+    template_name = 'Stage2_n3/MyWaitPage.html'
+
     def is_displayed(self):
         order = [2, 3, 1]
         return self.player.display(order)
 
+    def vars_for_template(self):
+        return {'expiry': self.group.timer()}
+
 
 class WaitForTask3(WaitPage):
+    template_name = 'Stage2_n3/MyWaitPage.html'
+
     def is_displayed(self):
         order = [3, 1, 2]
         return self.player.display(order)
+
+    def vars_for_template(self):
+        return {'expiry': self.group.timer()}
 
 
 class Task1(Page):
     form_model = 'player'
     form_fields = ['task']
 
-    timer_text = 'Time left to complete Stage 2:'
+    timer_text = 'Remaining time:'
 
     def get_timeout_seconds(self):
         return self.group.timer()
@@ -77,7 +96,7 @@ class Task2(Page):
     form_model = 'player'
     form_fields = ['task']
 
-    timer_text = 'Time left to complete Stage 2:'
+    timer_text = 'Remaining time:'
 
     def get_timeout_seconds(self):
         return self.group.timer()
@@ -104,7 +123,7 @@ class Task3(Page):
     form_model = 'player'
     form_fields = ['task']
 
-    timer_text = 'Time left to complete Stage 2:'
+    timer_text = 'Remaining time:'
 
     def get_timeout_seconds(self):
         return self.group.timer()

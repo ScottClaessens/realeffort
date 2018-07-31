@@ -1,0 +1,31 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Voting
+{% endblock %}
+
+{% block content %}
+
+<p>
+    You and the other two players in your group will now vote on what happens before Stage 3. There are two options:
+    <li>
+        <ul>
+            <b>Layoff.</b> {% if session == "realeffort7" %} One player in your group will be removed from the group
+            at random before Stage 3. {% else %} The weakest player (i.e. the one who made the most mistakes in Stage 2)
+            will be removed from the group before Stage 3. {% endif %}
+        </ul>
+        <ul>
+            <b>Pay cut.</b> Your pay per completed response cycle will be reduced in Stage 3.
+        </ul>
+    </li>
+</p>
+<p>
+    The majority vote will decide which option is implemented in Stage 3.
+</p>
+
+{% formfield player.vote label="Which option would you like to vote for?" %}
+
+{% next_button %}
+
+{% endblock %}

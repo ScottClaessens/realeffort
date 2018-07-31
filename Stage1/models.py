@@ -14,7 +14,7 @@ Real-Effort Task - Stage 1
 
 class Constants(BaseConstants):
     name_in_url = 'Stage1'
-    players_per_group = 3
+    players_per_group = None
     num_rounds = 180
 
 

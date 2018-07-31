@@ -1,0 +1,26 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Voting
+{% endblock %}
+
+{% block content %}
+
+{% if vote == "layoff" %}
+    <p>
+        The majority of your group voted to lay off one of the group members in Stage 3.
+    </p>
+{% else %}
+    <p>
+        The majority of your group voted for a pay cut in Stage 3.
+    </p>
+{% endif %}
+
+<p>
+    Please click Next to continue.
+</p>
+
+{% next_button %}
+
+{% endblock %}
