@@ -23,7 +23,7 @@ class Constants(BaseConstants):
 class Subsession(BaseSubsession):
     def creating_session(self):
         self.session.vars['numbers2'] = []
-        for n in range(3, 6):
+        for n in range(3, 11):
             random.seed(n)
             self.session.vars['numbers2'].append(random.sample(list(range(10, 100)) * 3, 180))
         for p in self.get_players():
@@ -47,6 +47,16 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     task = models.IntegerField(
+        min=20,
+        max=396
+    )
+
+    task2 = models.IntegerField(
+        min=20,
+        max=396
+    )
+
+    task3 = models.IntegerField(
         min=20,
         max=396
     )
@@ -83,6 +93,71 @@ class Player(BasePlayer):
                 self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] = False
         else:
             self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] = False
+
+    def task3_before_next_page(self):
+        self.participant.vars['stage2_attempted_individual'] += 1
+        self.group.get_player_by_id(1).participant.vars['stage2_attempted_cycles'] += 1
+        if self.round_number in range(1, 31) or self.round_number in range(61, 91) or self.round_number in range(
+                121, 151):
+            num1 = self.group.get_player_by_id(2).task
+        else:
+            num1 = self.group.get_player_by_id(1).task
+        num2 = self.session.vars['numbers2'][3][self.round_number - 1]
+        if self.task2 == num1 + num2:
+            self.participant.vars['stage2_correct_individual'] += 1
+            if self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] is True:
+                self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] = True
+            else:
+                self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] = False
+        else:
+            self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] = False
+        if self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] is True:
+            self.group.get_player_by_id(1).participant.vars['stage2_correct_cycles'] += 1
+
+    def task4_before_next_page(self):
+        self.participant.vars['stage2_attempted_individual'] += 1
+        num1 = self.session.vars['numbers2'][4][self.round_number - 1]
+        num2 = self.session.vars['numbers2'][5][self.round_number - 1]
+        if self.task2 == num1 + num2:
+            self.participant.vars['stage2_correct_individual'] += 1
+            self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] = True
+        else:
+            self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] = False
+
+    def task5_before_next_page(self):
+        self.participant.vars['stage2_attempted_individual'] += 1
+        if self.round_number in range(1, 31) or self.round_number in range(61, 91) or self.round_number in range(
+                121, 151):
+            num1 = self.group.get_player_by_id(2).task2
+        else:
+            num1 = self.group.get_player_by_id(1).task2
+        num2 = self.session.vars['numbers2'][6][self.round_number - 1]
+        if self.task3 == num1 + num2:
+            self.participant.vars['stage2_correct_individual'] += 1
+            if self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] is True:
+                self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] = True
+            else:
+                self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] = False
+        else:
+            self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] = False
+
+    def task6_before_next_page(self):
+        self.participant.vars['stage2_attempted_individual'] += 1
+        self.group.get_player_by_id(1).participant.vars['stage2_attempted_cycles'] += 1
+        if self.round_number in range(1, 31) or self.round_number in range(61, 91) or self.round_number in range(
+                121, 151):
+            num1 = self.group.get_player_by_id(1).task3
+        else:
+            num1 = self.group.get_player_by_id(2).task3
+        num2 = self.session.vars['numbers2'][7][self.round_number - 1]
+        if self.task3 == num1 + num2:
+            self.participant.vars['stage2_correct_individual'] += 1
+            if self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] is True:
+                self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] = True
+            else:
+                self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] = False
+        else:
+            self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] = False
         if self.group.get_player_by_id(1).participant.vars['stage2_currentcyclecorrect?'] is True:
             self.group.get_player_by_id(1).participant.vars['stage2_correct_cycles'] += 1
 
@@ -96,12 +171,22 @@ class Player(BasePlayer):
         else:
             return False
 
-    def num1(self, order):
+    def num1(self, order, task):
         if self.round_number in range(1, 31) or self.round_number in range(61, 91) or self.round_number in range(
                 121, 151):
-            return self.group.get_player_by_id(order[0]).task
+            if task == 1:
+                return self.group.get_player_by_id(order[0]).task
+            elif task == 2:
+                return self.group.get_player_by_id(order[0]).task2
+            elif task == 3:
+                return self.group.get_player_by_id(order[0]).task3
         else:
-            return self.group.get_player_by_id(order[1]).task
+            if task == 1:
+                return self.group.get_player_by_id(order[1]).task
+            elif task == 2:
+                return self.group.get_player_by_id(order[1]).task2
+            elif task == 3:
+                return self.group.get_player_by_id(order[1]).task3
 
     def save_and_reset_vars(self):
         # Add to payoffs
@@ -119,10 +204,14 @@ class Player(BasePlayer):
         waiting_pages = [
             'WaitForTask1',
             'WaitForTask2',
+            'WaitForTask3',
+            'WaitForTask4',
+            'WaitForTask5',
+            'WaitForTask6'
         ]
         wp_sec = sum(PageCompletion.objects.filter(participant=self.participant,
                                                    page_name__in=waiting_pages).values_list(
             'seconds_on_page',
             flat=True))
         self.idle_time = wp_sec
-        self.participant.vars['stage2_idletime'] = wp_sec
+        self.participant.vars['stage3_idletime'] = wp_sec

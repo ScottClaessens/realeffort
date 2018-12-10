@@ -8,5 +8,5 @@ from random import *
 class PlayerBot(Bot):
 
     def play_round(self):
-        yield (pages.Voting, {'vote': 2})
+        yield (pages.Voting, {'vote': randint(1, 2)})
         yield (pages.VotingResult)

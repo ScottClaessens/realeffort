@@ -59,7 +59,7 @@ SESSION_CONFIGS = [
        'stage1_piecerate': stage1_piecerate,
        'layoff': 'random',
        'stage3_piecerate': 30,
-       'stage3_requiredcycles': 3
+       'stage3_requiredcycles': 2
     },
     {
         'name': 'realeffort4',
@@ -75,7 +75,7 @@ SESSION_CONFIGS = [
         'stage1_piecerate': stage1_piecerate,
         'layoff': 'weak',
         'stage3_piecerate': 30,
-        'stage3_requiredcycles': 3
+        'stage3_requiredcycles': 2
     },
     {
        'name': 'realeffort5',
@@ -85,7 +85,8 @@ SESSION_CONFIGS = [
        'app_sequence': ['Intro',
                         'Stage1',
                         'Stage2_n2',
-                        'Stage3_n2'],
+                        'Stage3_n2'
+                        ],
        'timer': timer,
        'stage1_piecerate': stage1_piecerate,
        'stage3_piecerate': 30,

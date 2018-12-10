@@ -85,7 +85,6 @@ class Player(BasePlayer):
         else:
             self.group.get_player_by_id(1).participant.vars['stage3_currentcyclecorrect?'] = False
 
-
     def task3_before_next_page(self):
         self.participant.vars['stage3_attempted_individual'] += 1
         self.group.get_player_by_id(1).participant.vars['stage3_attempted_cycles'] += 1
